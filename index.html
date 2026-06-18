@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Human Scale</title>
+
+    <link rel="stylesheet" href="./style.css">
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+</head>
+<body>
+
+<h1>Human Scale</h1>
+<p class="subtitle">What if countries were sized by people, not land?</p>
+
+<div id="controls">
+    <button id="areaBtn" class="active">Area View</button>
+    <button id="popBtn">Population View</button>
+    <button id="densityBtn">Density View</button>
+    <button id="growthBtn">Growth View</button>
+    <button id="humanScaleBtn">Human Scale View</button>
+</div>
+
+<div id="layout">
+
+    <div id="map-column">
+        <div id="map-container"></div>
+        <div id="legend-container"></div>
+        <div id="timeline">
+            <div id="timeline-controls">
+                <button id="playBtn" type="button">▶ Play</button>
+                <span id="yearLabel">2024</span>
+            </div>
+            <input type="range" id="yearSlider" min="0" max="7" step="1" value="7">
+            <div id="year-ticks">
+                <span>1960</span>
+                <span>1970</span>
+                <span>1980</span>
+                <span>1990</span>
+                <span>2000</span>
+                <span>2010</span>
+                <span>2020</span>
+                <span>2024</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="info-panel">
+
+        <div id="main-section">
+            <h2 id="panel-title">Country Information</h2>
+
+            <div id="country-name">Click a country</div>
+
+            <div id="single-stats">
+                <div id="population"></div>
+                <div id="area"></div>
+                <div id="density"></div>
+                <div id="growth"></div>
+            </div>
+
+            <div id="compare-stats" class="hidden">
+                <div class="compare-row">
+                    <span class="compare-label">Population</span>
+                    <span id="compare-pop" class="compare-values"></span>
+                </div>
+                <div class="compare-row">
+                    <span class="compare-label">Area</span>
+                    <span id="compare-area" class="compare-values"></span>
+                </div>
+                <div class="compare-row">
+                    <span class="compare-label">Density</span>
+                    <span id="compare-density" class="compare-values"></span>
+                </div>
+            </div>
+
+            <div id="trajectory-section" class="hidden">
+                <h3 class="section-subtitle">Population Growth</h3>
+                <div id="trajectory-chart"></div>
+            </div>
+        </div>
+
+        <div id="race-section">
+            <h3 class="section-subtitle"><span id="race-title">Top 10 Population</span> <span id="race-year"></span></h3>
+            <div id="race-chart"></div>
+            <div id="race-bottom-section" class="hidden">
+                <h3 class="section-subtitle"><span id="race-bottom-title">Bottom 10 Growth Rate</span> <span id="race-bottom-year"></span></h3>
+                <div id="race-chart-bottom"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="./main.js"></script>
+
+</body>
+</html>

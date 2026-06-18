@@ -1,0 +1,411 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    padding: 10px 10px 0;
+    margin: 0;
+}
+
+.subtitle {
+    text-align: center;
+    margin: 0 0 10px;
+    color: #666;
+}
+
+#controls {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#controls button {
+    padding: 8px 20px;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+#controls button:hover {
+    background: #f0f0f0;
+}
+
+#controls button.active {
+    background: #4472c4;
+    color: #fff;
+    border-color: #4472c4;
+}
+
+#layout {
+    display: flex;
+    height: 90vh;
+}
+
+#map-column {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+}
+
+#map-container {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    cursor: grab;
+    transition: opacity 0.25s ease;
+}
+
+#map-container:active {
+    cursor: grabbing;
+}
+
+#map-container svg {
+    display: block;
+}
+
+#map-container.mode-transition {
+    opacity: 0.55;
+}
+
+#legend-container {
+    display: flex;
+    justify-content: center;
+    padding: 8px 0 4px;
+}
+
+#timeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px 16px;
+    gap: 6px;
+}
+
+#timeline-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#playBtn {
+    padding: 6px 16px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+    min-width: 90px;
+}
+
+#playBtn:hover {
+    background: #f0f0f0;
+}
+
+#playBtn.playing {
+    background: #4472c4;
+    color: #fff;
+    border-color: #4472c4;
+}
+
+#yearLabel {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4472c4;
+}
+
+#yearSlider {
+    width: min(600px, 90%);
+    cursor: pointer;
+}
+
+#year-ticks {
+    display: flex;
+    justify-content: space-between;
+    width: min(600px, 90%);
+    font-size: 11px;
+    color: #888;
+}
+
+.legend-title {
+    font-size: 12px;
+    font-weight: bold;
+    fill: #333;
+}
+
+.legend-label {
+    font-size: 11px;
+    fill: #555;
+}
+
+#info-panel {
+    flex: 1;
+    padding: 20px;
+    border-left: 1px solid #ccc;
+    background: #f8f8f8;
+    overflow-y: auto;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+#panel-title {
+    font-size: 14px;
+    color: #888;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#country-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+#population,
+#area,
+#density {
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+.compare-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.compare-label {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 4px;
+}
+
+.compare-values {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.compare-values .vs-a {
+    color: #4472c4;
+}
+
+.compare-values .vs-b {
+    color: #e74c3c;
+}
+
+.compare-values .vs-sep {
+    color: #999;
+    font-weight: 400;
+    margin: 0 6px;
+}
+
+.section-subtitle {
+    font-size: 13px;
+    color: #666;
+    margin: 20px 0 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+}
+
+#trajectory-section {
+    overflow: visible;
+}
+
+#trajectory-section .section-subtitle {
+    margin-top: 16px;
+}
+
+#trajectory-chart {
+    width: 100%;
+    overflow: visible;
+}
+
+#trajectory-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+#race-section {
+    margin-top: 8px;
+}
+
+#race-year {
+    font-weight: normal;
+    color: #4472c4;
+}
+
+.country-path {
+    cursor: pointer;
+}
+
+.country-path.compare-dim {
+    opacity: 0.35;
+}
+
+.dorling-circles-layer {
+    pointer-events: all;
+}
+
+.dorling-labels-layer {
+    pointer-events: none;
+}
+
+.dorling-circle {
+    cursor: pointer;
+    stroke: #fff;
+    stroke-width: 1;
+    opacity: 0.95;
+}
+
+.dorling-circle.compare-dim {
+    opacity: 0.3;
+}
+
+.dorling-circle.dorling-selected-a {
+    stroke: #4472c4;
+    stroke-width: 3;
+    opacity: 1;
+}
+
+.dorling-circle.dorling-selected-b {
+    stroke: #e74c3c;
+    stroke-width: 3;
+    opacity: 1;
+}
+
+.dorling-label {
+    font-size: 11px;
+    font-weight: 600;
+    fill: #222;
+    pointer-events: none;
+    paint-order: stroke fill;
+    stroke: #fff;
+    stroke-width: 3px;
+    stroke-linejoin: round;
+}
+
+.dorling-label-pop {
+    font-size: 10px;
+    font-weight: 500;
+    fill: #555;
+    stroke-width: 2.5px;
+}
+
+#map-container.dorling-active {
+    background: #f4f8fc;
+}
+
+#race-chart,
+#race-chart-bottom {
+    position: relative;
+    width: 100%;
+    height: 320px;
+}
+
+#race-bottom-section .section-subtitle {
+    margin-top: 12px;
+}
+
+#race-chart-bottom .race-bar {
+    background: linear-gradient(90deg, #c0392b, #e74c3c);
+}
+
+.race-row {
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    height: 28px;
+    padding: 0 4px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.race-row:hover {
+    background: rgba(68, 114, 196, 0.1);
+}
+
+.race-row.highlight-a {
+    outline: 2px solid #4472c4;
+}
+
+.race-row.highlight-b {
+    outline: 2px solid #e74c3c;
+}
+
+.race-rank {
+    width: 22px;
+    font-weight: bold;
+    color: #888;
+    font-size: 12px;
+    text-align: right;
+    margin-right: 6px;
+}
+
+.race-bar-wrap {
+    flex: 1;
+    height: 18px;
+    background: #eee;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-right: 8px;
+}
+
+.race-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4472c4, #6a9bd8);
+    border-radius: 3px;
+    min-width: 2px;
+}
+
+#race-chart.growth-mode .race-bar {
+    background: linear-gradient(90deg, #27ae60, #58d68d);
+}
+
+#race-chart.density-mode .race-bar {
+    background: linear-gradient(90deg, #2980b9, #5dade2);
+}
+
+#race-chart.density-mode .race-pop {
+    width: 108px;
+    font-size: 11px;
+}
+
+#race-chart.density-mode .race-name {
+    width: 78px;
+}
+
+#race-chart.area-mode .race-bar {
+    background: linear-gradient(90deg, #8e6b3d, #c9a66b);
+}
+
+.race-name {
+    width: 90px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+}
+
+.race-pop {
+    width: 72px;
+    text-align: right;
+    color: #555;
+    font-size: 12px;
+}
